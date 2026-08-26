@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zlyang.local/schemas/zlyang-record.schema.json",
+  "title": "ZLYang OS Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_id",
+    "record_type",
+    "title",
+    "status",
+    "created_at",
+    "updated_at",
+    "owner",
+    "source_refs",
+    "parent_refs",
+    "tags",
+    "claims",
+    "decisions",
+    "outputs",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "record_id": {"type": "string", "pattern": "^zly-(source|evidence|claim|distillation|baseline|audit|knowledge|run)-[0-9]{8}-[a-z0-9][a-z0-9-]*-[0-9]{2}$"},
+    "record_type": {"enum": ["source", "evidence", "claim", "distillation", "baseline", "audit", "knowledge", "run"]},
+    "title": {"type": "string", "minLength": 1},
+    "status": {"enum": ["draft", "verified", "partially_verified", "conflicted", "unverified", "rejected", "approved", "active", "superseded", "retired", "candidate", "published", "stale", "pass", "conditional_pass", "fail", "completed", "blocked"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "owner": {"type": "string", "minLength": 1},
+    "scope": {"type": "string"},
+    "tags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "source_refs": {"type": "array", "items": {"$ref": "#/$defs/recordRef"}, "uniqueItems": true},
+    "parent_refs": {"type": "array", "items": {"$ref": "#/$defs/recordRef"}, "uniqueItems": true},
+    "claims": {"type": "array", "items": {"$ref": "#/$defs/claim"}},
+    "decisions": {"type": "array", "items": {"$ref": "#/$defs/decision"}},
+    "outputs": {"type": "array", "items": {"$ref": "#/$defs/output"}},
+    "supersedes": {"type": "array", "items": {"$ref": "#/$defs/recordRef"}, "uniqueItems": true},
+    "superseded_by": {"type": "array", "items": {"$ref": "#/$defs/recordRef"}, "uniqueItems": true},
+    "effective_at": {"type": "string", "format": "date-time"},
+    "review_at": {"type": "string", "format": "date-time"},
+    "provenance": {"$ref": "#/$defs/provenance"},
+    "extensions": {"type": "object", "additionalProperties": true}
+  },
+  "$defs": {
+    "recordRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_id"],
+      "properties": {
+        "record_id": {"type": "string", "minLength": 1},
+        "path": {"type": "string"},
+        "relation": {"type": "string"}
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim_id", "statement", "verdict", "confidence", "evidence_refs"],
+      "properties": {
+        "claim_id": {"type": "string", "pattern": "^clm-[a-z0-9][a-z0-9-]*$"},
+        "statement": {"type": "string", "minLength": 1},
+        "verdict": {"enum": ["verified", "partially_verified", "conflicted", "unverified", "rejected"]},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "confidence_limit": {"type": "string"},
+        "scope": {"type": "string"},
+        "valid_from": {"type": "string", "format": "date-time"},
+        "valid_to": {"type": "string", "format": "date-time"},
+        "evidence_refs": {"type": "array", "items": {"$ref": "#/$defs/recordRef"}},
+        "supersedes": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision_id", "statement", "rationale", "owner"],
+      "properties": {
+        "decision_id": {"type": "string", "pattern": "^dec-[a-z0-9][a-z0-9-]*$"},
+        "statement": {"type": "string", "minLength": 1},
+        "rationale": {"type": "string", "minLength": 1},
+        "owner": {"type": "string", "minLength": 1},
+        "claim_refs": {"type": "array", "items": {"type": "string"}},
+        "decided_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "media_type"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "media_type": {"type": "string", "minLength": 1},
+        "checksum_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["run_id", "generator"],
+      "properties": {
+        "run_id": {"type": "string", "minLength": 1},
+        "generator": {"type": "string", "minLength": 1},
+        "input_checksum_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "notes": {"type": "string"}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "active"}}, "required": ["status"]},
+      "then": {"required": ["effective_at"]}
+    },
+    {
+      "if": {"properties": {"status": {"const": "superseded"}}, "required": ["status"]},
+      "then": {"required": ["superseded_by"]}
+    }
+  ]
+}

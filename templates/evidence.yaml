@@ -1,0 +1,21 @@
+schema_version: 1.0.0
+source_register:
+  - source_id: src-example-01
+    location: ""
+    source_tier: C
+    owner_or_author: unknown
+    created_at: unknown
+    accessed_at: ""
+    version: unknown
+    scope: ""
+    independence_group: ""
+claims:
+  - claim_id: clm-example
+    statement: ""
+    verdict: unverified
+    confidence: 0.0
+    confidence_limit: "Missing evidence"
+    supporting_evidence: []
+    contradicting_evidence: []
+    unresolved_questions: []
+next_verification_action: ""

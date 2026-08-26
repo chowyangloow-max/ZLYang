@@ -1,0 +1,4 @@
+interface:
+  display_name: "ZLYang Audit"
+  short_description: "审计证据、血缘、执行闭环与遗漏风险"
+  default_prompt: "Use $zlyang-audit to audit these ZLYang records and challenge whether the work is truly complete."

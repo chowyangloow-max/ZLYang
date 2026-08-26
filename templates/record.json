@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "zly-source-20260826-example-01",
+  "record_type": "source",
+  "title": "Replace with record title",
+  "status": "draft",
+  "created_at": "2026-08-26T00:00:00+08:00",
+  "updated_at": "2026-08-26T00:00:00+08:00",
+  "owner": "replace-me",
+  "scope": "Describe applicable scope",
+  "tags": [],
+  "source_refs": [],
+  "parent_refs": [],
+  "claims": [],
+  "decisions": [],
+  "outputs": [],
+  "provenance": {
+    "run_id": "run-20260826-example-01",
+    "generator": "zlyang-os"
+  },
+  "extensions": {}
+}

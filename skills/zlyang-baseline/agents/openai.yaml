@@ -1,0 +1,4 @@
+interface:
+  display_name: "ZLYang Baseline"
+  short_description: "生成当前唯一执行基线并治理版本替代"
+  default_prompt: "Use $zlyang-baseline to create the single current execution baseline from these approved conclusions."

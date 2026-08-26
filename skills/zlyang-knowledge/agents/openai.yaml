@@ -1,0 +1,4 @@
+interface:
+  display_name: "ZLYang Knowledge"
+  short_description: "发布可复用知识并管理复审替代与退役"
+  default_prompt: "Use $zlyang-knowledge to publish this audited result as a reusable, governed knowledge asset."

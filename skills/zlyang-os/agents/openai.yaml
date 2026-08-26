@@ -1,0 +1,4 @@
+interface:
+  display_name: "ZLYang OS"
+  short_description: "把混乱信息转为可信、可执行、可追溯系统"
+  default_prompt: "Use $zlyang-os to turn these materials into a trustworthy, executable, and traceable result."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "ZLYang Distill"
+  short_description: "安全去重压缩并保留承重细节与冲突"
+  default_prompt: "Use $zlyang-distill to distill these verified materials without losing decision-critical detail."

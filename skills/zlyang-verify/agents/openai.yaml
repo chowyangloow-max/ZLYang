@@ -1,0 +1,4 @@
+interface:
+  display_name: "ZLYang Verify"
+  short_description: "验证来源、主张、时效与证据可信度"
+  default_prompt: "Use $zlyang-verify to verify the sources and material claims in these inputs."
