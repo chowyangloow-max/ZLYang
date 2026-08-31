@@ -2,6 +2,8 @@
 
 ZLYang OS uses a common record envelope so every artifact can be traced and governed consistently. The normative machine schema is [`schemas/zlyang-record.schema.json`](../schemas/zlyang-record.schema.json).
 
+Record schema `1.0.0` remains compatible in ZLYang OS v1.1. The run control plane uses schema `1.1.0`; see [`run-controls.md`](run-controls.md).
+
 ## Record types
 
 | Type | Meaning | Typical module |
@@ -14,6 +16,10 @@ ZLYang OS uses a common record envelope so every artifact can be traced and gove
 | `audit` | Checks, findings, and release verdict | Audit |
 | `knowledge` | Reusable published knowledge asset | Knowledge |
 | `run` | One processing run and its inputs/outputs | Entry pipeline |
+
+## Run control plane
+
+A full run adds a manifest, five ordered checkpoints, a coverage matrix, deletion ledger, dependency graph, and review plan under `workspace/runs/<run-id>/`. These controls govern movement between records; they do not replace the record envelope. The manifest is authoritative for stage state, while the four companion artifacts make loss, broken links, and reviewer independence inspectable.
 
 ## Common envelope
 

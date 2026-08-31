@@ -17,3 +17,7 @@ An executor should know: trigger, owner, permissions, required inputs, ordered a
 - `retired`: intentionally no longer applicable without a replacement.
 
 Each active baseline requires `effective_at`. Each superseded baseline requires a forward link to its replacement. Keep historical files immutable; issue a new version for material changes.
+
+## Dependency graph
+
+Represent both record lineage and execution dependencies. A baseline rule may depend on permissions, required inputs, prior steps, decisions, external systems, rollback routes, and replacement rules. Unresolved critical dependencies block activation. When a baseline changes, identify every downstream baseline or knowledge asset that may become stale.

@@ -16,6 +16,7 @@ Create one executable current truth without destroying history.
 5. List superseded rules explicitly; never rely on readers to infer obsolescence.
 6. Set effective date, review date, rollback trigger, and change rationale.
 7. Mark the baseline `draft`, `approved`, `active`, `superseded`, or `retired`.
+8. Update the coverage matrix and dependency graph, including rule prerequisites, decision branches, failure escalation, rollback, and downstream dependents.
 
 No baseline is active merely because it is the newest file. Activation requires an explicit status and effective date.
 
@@ -23,4 +24,4 @@ Read [baseline rules](references/baseline.md) for precedence and lifecycle. Use 
 
 ## Output
 
-Produce the current baseline, supersession map, activation metadata, exceptions, and rollback/review conditions.
+Produce the current baseline, supersession map, execution dependency graph, activation metadata, exceptions, and rollback/review conditions.

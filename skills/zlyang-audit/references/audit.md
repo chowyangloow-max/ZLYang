@@ -16,3 +16,13 @@
 ## Mandatory adversarial checks
 
 Trace a conclusion backward to raw source, replay one representative action forward, inspect at least one excluded item, test an exception or boundary case, and verify supersession in both directions.
+
+## Reconstruction and mutation
+
+For representative high-impact baseline rules, reconstruct: baseline step -> distilled conclusion -> protected detail -> claim -> evidence -> raw source. Record every missing or ambiguous hop.
+
+Then remove or alter one scope, prerequisite, exception, threshold, date, owner, permission, rollback, or failure path. The expected decision or acceptance result must change. If it does not, the baseline or its test is not sensitive to a load-bearing detail and cannot pass unconditionally.
+
+## Independence check
+
+For medium and high-risk runs, compare reviewer identities and submission order with the review plan. High-risk audit authors must not be baseline authors. Undocumented or self-certified independence is a major finding; fabricated independence is critical.

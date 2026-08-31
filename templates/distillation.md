@@ -19,10 +19,12 @@ parent_refs: []
 | Conflict | Strongest case A | Strongest case B | Decision needed | Status |
 |---|---|---|---|---|
 
-## Merge and exclusion log
+## Deletion ledger summary
 
-| Item refs | Action | Rationale |
-|---|---|---|
+The normative ledger is the run's `deletion-ledger.json`.
+
+| Ledger ID | Item refs | Action | Replacement destination | Load-bearing | Review status | Rationale |
+|---|---|---|---|---|---|---|
 
 ## Lineage map
 

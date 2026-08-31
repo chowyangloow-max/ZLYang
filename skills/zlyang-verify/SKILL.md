@@ -16,6 +16,8 @@ Establish what may be trusted, to what degree, and for what scope.
 5. Assign one verdict: `verified`, `partially_verified`, `conflicted`, `unverified`, or `rejected`.
 6. Set confidence separately from verdict and explain the limiting factor.
 7. Send only usable claims forward; preserve rejected and unresolved claims for traceability.
+8. Add every material source item and claim to the run coverage matrix.
+9. When the review plan requires independence, perform separate extraction or verification passes before comparing results; record disagreements and their disposition.
 
 Do not treat repetition as corroboration when sources share the same origin. Do not upgrade absence of contradiction into proof.
 
@@ -23,4 +25,4 @@ Read [verification rules](references/verification.md) for source tiers, verdict 
 
 ## Output
 
-Produce a source register, claim-evidence matrix, verdicts, confidence, unresolved conflicts, and the next verification action.
+Produce a source register, claim-evidence matrix, coverage updates, independent-review comparison when required, verdicts, confidence, unresolved conflicts, and the next verification action.

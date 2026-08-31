@@ -1,6 +1,6 @@
 ---
 name: zlyang-os
-description: Route mixed, contradictory, versioned source material through verification, distillation, baseline creation, audit, and knowledge capture. Use when a task must turn messy information into trustworthy, executable, and traceable records rather than merely summarize it.
+description: Run mixed, contradictory, versioned material through gated verification, distillation, baseline creation, audit, and knowledge capture with coverage, deletion, dependency, checkpoint, and risk-based independent review controls.
 ---
 
 # ZLYang OS
@@ -17,6 +17,23 @@ Convert uncertain inputs into a traceable decision chain. Preserve source materi
 
 Run only the modules the request needs. For a full pipeline, use the order above and stop at a gate when evidence is insufficient.
 
+## Managed capability route
+
+Use the project-local `generate-openings` Skill for Chinese short-video opening generation, rewriting, diagnosis, or scoring. It is a governed execution capability, not a sixth governance stage: ZLYang verifies and versions the method, while `generate-openings` performs the content task. For material method changes, route the revision through the five ZLYang stages before treating the new version as active.
+
+For a new multi-stage run, start with `python3 scripts/manage_run.py start`. Use the generated manifest as the state authority. Advance a stage only with `python3 scripts/manage_run.py checkpoint`; never edit a checkpoint to manufacture a pass.
+
+## Control layer
+
+Every full run maintains four controls under `workspace/runs/<run-id>/`:
+
+- `coverage-matrix.json`: every material input and claim through its downstream destination;
+- `deletion-ledger.json`: every exclusion, merge, compression, and restoration decision;
+- `dependency-graph.json`: record and execution dependencies plus unresolved edges;
+- `review-plan.json`: risk level, required independence, assigned reviewers, and disagreements.
+
+Classify risk before extraction. Low risk may use one processing path. Medium risk requires two independent extraction or verification passes for material claims. High risk requires independent extraction plus an auditor who did not author the baseline. Independence means reviewers do not see the other draft before submitting their own result. Read [the pipeline contract](references/pipeline.md) for thresholds and checkpoint rules.
+
 ## Operating invariants
 
 1. Raw inputs are immutable evidence, not conclusions.
@@ -31,4 +48,4 @@ Read [the pipeline contract](references/pipeline.md) for multi-module runs. Read
 
 ## Deliverable
 
-Return the requested artifact plus a compact traceability note: inputs used, unresolved uncertainties, current status, and next gate. Do not imply completion when a downstream gate has not passed.
+Return the requested artifact plus a compact traceability note: run ID, inputs used, coverage gaps, deletions requiring review, unresolved uncertainties, current checkpoint, review mode, and next gate. Do not imply completion when a downstream gate has not passed.

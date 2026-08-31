@@ -19,3 +19,7 @@ claims:
     contradicting_evidence: []
     unresolved_questions: []
 next_verification_action: ""
+independent_review:
+  required: false
+  reviewer_ids: []
+  disagreement_refs: []

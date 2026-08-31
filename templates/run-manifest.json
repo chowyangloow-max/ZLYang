@@ -1,11 +1,27 @@
 {
+  "schema_version": "1.1.0",
   "run_id": "run-20260826-example-01",
   "started_at": "2026-08-26T00:00:00+08:00",
   "completed_at": null,
   "owner": "replace-me",
   "objective": "",
-  "status": "draft",
-  "stages": [],
+  "status": "in_progress",
+  "risk_level": "low",
+  "review_mode": "single",
+  "current_stage": "verify",
+  "stages": [
+    {"name": "verify", "status": "in_progress", "checkpoint_path": "checkpoint-verify.json"},
+    {"name": "distill", "status": "pending", "checkpoint_path": "checkpoint-distill.json"},
+    {"name": "baseline", "status": "pending", "checkpoint_path": "checkpoint-baseline.json"},
+    {"name": "audit", "status": "pending", "checkpoint_path": "checkpoint-audit.json"},
+    {"name": "knowledge", "status": "pending", "checkpoint_path": "checkpoint-knowledge.json"}
+  ],
+  "control_artifacts": {
+    "coverage_matrix": "coverage-matrix.json",
+    "deletion_ledger": "deletion-ledger.json",
+    "dependency_graph": "dependency-graph.json",
+    "review_plan": "review-plan.json"
+  },
   "input_record_ids": [],
   "output_record_ids": [],
   "blocked_gate": null,

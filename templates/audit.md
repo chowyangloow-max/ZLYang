@@ -18,6 +18,23 @@ audited_record_refs: []
 
 ## Adversarial tests and counterexamples
 
+## Backward reconstruction
+
+| Baseline rule | Distillation | Protected detail | Claim | Evidence | Raw source | Result |
+|---|---|---|---|---|---|---|
+
+## Load-bearing mutation tests
+
+| Test | Detail removed or changed | Expected impact | Observed impact | Result |
+|---|---|---|---|---|
+
+## Control-plane checks
+
+- Coverage complete:
+- Deletion ledger reviewed:
+- Dependencies resolved:
+- Required reviewer independence satisfied:
+
 ## Verdict
 
 `pass | conditional_pass | fail`

@@ -15,6 +15,7 @@ Turn validated work into durable knowledge without detaching it from evidence or
 4. Add retrieval metadata: title, summary, tags, domain, and related assets.
 5. Add owner, review cadence, freshness trigger, supersession links, and retirement criteria.
 6. Publish as `candidate`, `published`, `stale`, `superseded`, or `retired`.
+7. Confirm the coverage matrix reaches the knowledge asset, its dependencies resolve, and reconstruction/mutation gates passed.
 
 Do not publish context-free conclusions. A knowledge asset must say when it should not be used.
 

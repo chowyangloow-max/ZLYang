@@ -1,0 +1,4 @@
+interface:
+  display_name: "短视频强开头生成器"
+  short_description: "生成主线一致、情绪有力并能自然承接正文的短视频开头"
+  default_prompt: "使用 $generate-openings 分析这篇文案，并生成最推荐开头和四个不同切口。"

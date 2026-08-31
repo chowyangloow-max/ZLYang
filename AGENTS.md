@@ -11,11 +11,14 @@ Use `skills/zlyang-os/SKILL.md` as the router. Load only the module Skill needed
 - Preserve raw inputs. Never overwrite evidence to match a conclusion.
 - Label uncertainty. Unsupported statements remain `unverified`.
 - Maintain lineage with `source_refs`, `parent_refs`, and a run manifest.
+- Maintain the run's coverage matrix, deletion ledger, dependency graph, review plan, and stage checkpoints.
 - Preserve scope, conditions, exceptions, numbers, dates, ownership, and failure paths during compression.
 - Never silently resolve conflicting authoritative sources.
 - Never call a draft baseline active or a candidate asset published.
 - Material changes create a new version and explicit supersession links.
 - Stop and report the blocking gate when trustworthy closure is impossible.
+- Medium-risk material requires dual independent extraction or verification. High-risk baselines additionally require an auditor who did not author the baseline.
+- Audit must pass backward reconstruction and load-bearing mutation tests before publication.
 
 ## File placement
 
@@ -32,4 +35,4 @@ Do not edit files in `workspace/archive/` except to repair metadata with an expl
 
 ## Definition of done
 
-The requested stage artifact exists, required lineage resolves, uncertainty and open conflicts are visible, status matches the actual gate, and `python3 scripts/validate.py` passes. A full pipeline is done only when audit passes and the knowledge asset has lifecycle metadata.
+The requested stage artifact exists, required lineage resolves, coverage and deletion decisions are complete, dependencies resolve, required reviewer independence is recorded, uncertainty and open conflicts are visible, status matches the actual checkpoint, and `python3 scripts/validate.py --records --runs` passes. A full pipeline is done only when reconstruction and mutation tests pass and the knowledge asset has lifecycle metadata.

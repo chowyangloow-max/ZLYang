@@ -45,7 +45,7 @@ def initialize(root: Path) -> tuple[list[Path], list[Path]]:
         metadata.write_text(
             json.dumps(
                 {
-                    "schema_version": "1.0.0",
+                    "schema_version": "1.1.0",
                     "project": "ZLYang OS",
                     "initialized_at": datetime.now().astimezone().isoformat(timespec="seconds"),
                 },

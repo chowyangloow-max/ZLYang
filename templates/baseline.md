@@ -30,3 +30,8 @@ supersedes: []
 ## Superseded rules
 
 ## Change rationale and evidence
+
+## Execution dependencies
+
+| Dependency | Required by step/rule | Resolution or owner | Status |
+|---|---|---|---|
