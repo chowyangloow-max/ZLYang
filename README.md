@@ -1,156 +1,162 @@
 # ZLYang OS
 
-## v1.2 — 目的驱动与随时可调用的能力库
+**先搞清资料以后用来做什么，再决定调研、蒸馏、保存和调用什么。**
 
-**先判断资料以后用于完成什么任务，再决定调研重点、蒸馏边界、能力卡与调用方法。**
+ZLYang OS 是面向 **Codex** 的目的驱动信息处理与可复用能力系统。它不追求“整理出更多文档”，而是把原始资料转成以后**找得到、用得上、可验证、可追溯、能更新**的知识和方法。
 
-目的充分性而非强制问卷：当用途、未来任务、筛选规则、保留边界、可调用产物范式和成功标准已经明确，就直接做；只缺关键项时，只问一个能改变结果的问题。做知识库本身不是最终用途。
+> **关键规则：用途、规则、边界与输出范式已经明确，就直接做；只有缺少会改变结果的关键信息才追问。**
 
-原五模块治理仍在，入口增加 Discovery：
+## 1. 安装（Mac / Linux）
 
-    User task -> Discovery/Purpose Gate -> purpose-selected research
-       -> Verify -> Distill -> Baseline (when required) -> Audit -> Knowledge
-       -> atomic capability cards -> search index -> task retrieval -> feedback
+需要预先安装 [Git](https://git-scm.com/) 、**Python 3.10+** 和 Codex。
 
-主要新增文件：
+打开终端，复制这一行即可：
 
-- skills/zlyang-discovery/：目的充分性和调研路由。
-- templates/purpose-contract.json：用途契约模板。
-- templates/capability-card.json：可检索、带证据与生命周期的能力卡模板。
-- docs/purpose-research-recall.md：完整机制、边界与调用范式。
-- scripts/purpose_gate.py：真实可运行的 Purpose Gate。
-- scripts/build_capability_index.py：卡片结构验证和索引构建。
-- scripts/recall.py：按用途、场景、触发词与状态过滤召回。
-- scripts/test_purpose_recall.py：独立回归测试。
-- workspace/capabilities/：能力卡存储，index.jsonl 是可重建检索索引。
-
-### 本地安装 / 更新
-
-    git clone https://github.com/chowyangloow-max/ZLYang.git
-    cd ZLYang
-    python3 scripts/init_workspace.py
-    python3 scripts/install_codex_skills.py
-    python3 scripts/validate.py --records --runs
-    python3 scripts/test_purpose_recall.py
-
-已有本地仓库用 git status 检查未提交改动，然后执行 git pull origin main。随后运行 install_codex_skills.py。没有直接访问用户 Mac 文件系统的权限时，远程提交不会自动修改该电脑的本地副本。
-
-### 用途明确时，直接执行而非重复追问
-
-例如给出一段口播稿，并明确用途是内容创作、聚焦前5秒和情绪波峰、近期低粉爆款筛选、尽量保留原文。即刻进入结构分析；没有视频实际数据时标注未经验证，另列可选调研，不把后续卖什么当作强制障碍。
-
-将 templates/purpose-contract.json 复制到 workspace/my-purpose.json 并填入已知信息：
-
-    python3 scripts/purpose_gate.py inspect --file workspace/my-purpose.json
-
-状态 ready 才进入受控正式运行：
-
-    python3 scripts/manage_run.py start --slug content-study --owner operator --objective "短视频能力卡蒸馏" --risk low --purpose-file workspace/my-purpose.json
-
-### 生成与召回可调用知识
-
-能力卡用 JSON 结构保存到 workspace/capabilities/，其中标签、触发短语、未来任务、证据状态、适用范围、前置和例外用于检索和执行边界检查：
-
-    python3 scripts/build_capability_index.py
-    python3 scripts/recall.py --purpose 内容创作 --stage 开头 --task "优化前五秒反差开头" --allow-candidate --mode idea
-
-idea 模式可显式包含候选方法并展示警告；execute 模式仅召回 active + verified 的卡，仍须由执行层逐项判断其前置和适用条件。脚本只检索，不直接自动执行。
-
-### 作用和限制
-
-- **不取代原系统**：Verify / Distill / Baseline / Audit / Knowledge 和独立审核、删除账本、覆盖矩阵、反向验证保持存在。
-- **分清真实与推测**：点赞、留存等只是已给目标或待核查数据，不能由文本分析推断实际传播效果。
-- **按用途调研**：调研路由由 Codex 根据用例和证据缺口执行；脚本本身不自动联网抓取。
-- **不是语义搜索**：当前索引为确定性触发词和标签匹配，能复用但对同义改写有局限；未来可加向量召回。
-- **不把候选卡当已验证执行能力**：来源可回查、版本可停用，不靠旧规则出现次数判定有效。
-
-完整用法及细节：docs/purpose-research-recall.md 和 docs/run-controls.md。
-
-
-ZLYang OS 是一个面向 Codex 的信息治理项目。它把海量、混乱、真假参半、互相冲突、版本交错的材料，转成四类真正可用的结果：
-
-- **可信**：每项关键主张都有证据、判定和置信度；
-- **可执行**：当前基线明确负责人、步骤、条件、验收与回滚；
-- **可追溯**：每个结论都能回溯来源，也能追踪后续替代关系；
-- **可维护**：知识资产有复审、保鲜、替代和退役规则。
-
-## 系统架构
-
-```text
-Raw inputs
-   |
-   v
-Verify -> Distill -> Baseline -> Audit -> Knowledge
-   `-- checkpoints + coverage + deletion + dependencies + review --'
+```bash
+git clone https://github.com/chowyangloow-max/ZLYang.git && cd ZLYang && python3 scripts/setup.py
 ```
 
-## v1.1 控制层
+**这一条命令自动完成：** 下载项目、初始化工作区、把 Skills 注册到项目内的 `.agents/skills/`、检查目录和运行基础测试。不删除或覆盖已有工作数据。
 
-- **运行控制器**：自动建立 run-id、五阶段状态和 Checkpoint，阻止跳关；
-- **覆盖矩阵**：跟踪每条承重信息最终进入哪里，暴露遗漏；
-- **删除账本**：记录排除、合并、压缩和恢复，承重删减必须复核；
-- **依赖图**：检查来源、父记录、版本替代和执行前置是否断链；
-- **风险复核**：中风险双路独立验证，高风险再增加独立审计；
-- **反向测试**：从基线重建到原始来源，并用删减变异检验承重细节。
-
-总入口 Skill 位于 `skills/zlyang-os/`，下面由五个单一职责模块组成：
-
-- `zlyang-verify`：验证来源、主张、时效和证据；
-- `zlyang-distill`：安全去重、压缩，同时保护承重细节；
-- `zlyang-baseline`：生成当前唯一执行基线并治理版本；
-- `zlyang-audit`：反向检查遗漏、断链和假闭环；
-- `zlyang-knowledge`：发布知识并管理复审、替代和退役。
-
-项目还包含一个由 ZLYang 治理的执行能力：
-
-- `generate-openings`：调用用户原有的中文短视频开头方法，生成、诊断、评分并衔接正文。它不是第六个治理阶段；方法升级仍需经过 Verify → Distill → Baseline → Audit → Knowledge。
-
-## 快速开始
-
-1. 初始化或补全工作区。脚本只创建缺失内容，不覆盖已有数据：
-
-   ```bash
-   python3 scripts/init_workspace.py
-   ```
-
-2. 创建一次受门禁控制的运行：
-
-   ```bash
-   python3 scripts/manage_run.py start --slug policy-refresh --owner owner-id --objective "整理当前执行规则" --risk medium
-   ```
-
-3. 将原始输入登记到 `workspace/inbox/`，并维护新运行目录中的覆盖矩阵、删除账本、依赖图和复核计划。
-4. 完整处理调用总入口 Skill；每阶段完成后使用 `manage_run.py checkpoint` 过关，只处理一个阶段时调用对应模块 Skill。
-5. 记录变化后生成依赖图：
-
-   ```bash
-   python3 scripts/build_dependency_graph.py --run-id <run-id>
-   ```
-
-6. 将机器可读记录放入 `workspace/records/`，然后运行：
-
-   ```bash
-   python3 scripts/validate.py --records --runs
-   ```
-
-完整控制文件的字段说明见 `docs/run-controls.md`。
-
-## 项目地图
+然后在 **Codex 中打开 `ZLYang` 文件夹**，输入：
 
 ```text
-AGENTS.md                 Codex 总操作契约
-skills/                   总入口与五个模块 Skill
-docs/data-model.md        统一数据模型说明
-schemas/                  规范 JSON Schema
-templates/                准入与各阶段产物模板
-scripts/                  安全初始化与校验脚本
-workspace/                实际工作区
+使用 $zlyang-os，分析我提供的资料。
+先判断用途是否明确：明确就直接做；缺关键信息才问。
+按实际用途蒸馏，保护关键细节，生成今后可检索调用的能力卡。
 ```
 
-## 记录标识
+> 这是**项目级安装**，在该项目中打开 Codex 才会自动发现对应 Skills；若未出现，重新打开 Codex 项目。
 
-记录统一使用 `zly-<type>-<YYYYMMDD>-<slug>-<nn>`，单次运行使用 `run-<YYYYMMDD>-<slug>-<nn>`。ID 一经建立必须保持稳定，文件改名不能改变记录 ID。
+**已经安装，如何更新？** 在原来 `ZLYang` 目录运行：
 
-## v1.1 边界
+```bash
+git pull origin main && python3 scripts/setup.py
+```
 
-v1.1 提供本地文件治理、运行控制、风险复核契约和确定性门禁，不依赖外部服务。多 Agent 复核由 Codex 按 `review-plan.json` 调度并记录，脚本负责验证独立性要求是否满足，但不伪造 Agent 结果。暂不包含数据库、搜索索引、自动抓取、加密签名或工作流界面。
+更新前可先运行 `git status`，如果显示未提交的本地改动，先保存或处理，避免拉取冲突。
+
+## 2. 它解决哪些问题？
+
+| 遇到的问题 | ZLYang OS 的做法 |
+| --- | --- |
+| 文档整理了一堆，却不知道以后怎么用 | 先确认未来实际任务，定向蒸馏 |
+| 已经说清用途，AI 还一直追问 | 用途充分性检查：够用就开始 |
+| 压缩后丢了前置、例外、顺序、关键细节 | 覆盖矩阵、删除账本、依赖图、反向审计 |
+| 历史规则废弃了，还被重复执行 | 生命周期与版本替代、当前执行基线 |
+| 以前总结过的方法找不到 | 能力卡 + 用途/标签/触发词索引 |
+| 观点或作者自述被当作事实 | 来源核验、证据状态、候选与已验证分离 |
+
+## 3. 三个实际使用例子
+
+**例 A：短视频文案分析**
+
+你交一篇逐字稿，说：“拿来研究选题、前五秒、情绪波峰、口播结构，原稿尽量别改。”
+
+系统识别目的已经足够，不重复问“你要卖什么”；提取开头、结构、节奏和可复用方法，记录来源与限制。没有真实视频数据时，只能标注传播效果为**待验证判断**。
+
+**例 B：整改文件 / 项目 SOP**
+
+输入旧方案、新决策、复盘和操作手册，目的为“给执行人唯一当前正确清单”。系统区分当前有效、已替代和冲突内容；保留前置条件、分支、异常、验收，再生成执行基线。
+
+**例 C：做长期知识库**
+
+“我要做知识库”只说明**存储形式**，没有说明未来调用任务。此时系统会优先确认：“以后你要用这套资料做什么？” 确定用途后，才决定怎么提取与标记。
+
+## 4. 工作流程
+
+```text
+用户任务与材料
+    ↓
+Discovery：确认用途充分性（够用直接做，不够只问关键点）
+    ↓
+按用途选定调研方向、保留重点和验收标准
+    ↓
+Verify → Distill → Baseline* → Audit → Knowledge
+    ↓
+原子能力卡（触发条件 / 方法 / 来源 / 标签 / 使用边界 / 状态）
+    ↓
+索引检索 → 任务匹配 → 核对适用条件 → 调用 → 结果反馈
+
+* Baseline 专门处理需要唯一当前执行规则的任务；
+  内容创作分析可先输出清楚标注为候选的机制卡。
+```
+
+| 模块 | 职责 |
+| --- | --- |
+| **Discovery** | 识别目的、定向调研、只问关键问题 |
+| **Verify** | 事实、来源、时效、冲突证据 |
+| **Distill** | 目的导向提炼、保留承重细节 |
+| **Baseline** | 有效版本、执行步骤、替代关系 |
+| **Audit** | 覆盖、遗漏、断链、反向验证 |
+| **Knowledge** | 能力卡、标签、召回、复审退役 |
+
+仓库额外包含 `generate-openings`：中文短视频开头生成与诊断 Skill，它是业务能力，不是治理阶段。
+
+## 5. 目录说明
+
+```text
+ZLYang/
+├── AGENTS.md                   Codex 项目约束
+├── README.md                   入口说明
+├── skills/
+│   ├── zlyang-os/              统一入口
+│   ├── zlyang-discovery/       用途识别
+│   ├── zlyang-verify/          核验
+│   ├── zlyang-distill/         蒸馏
+│   ├── zlyang-baseline/        当前执行基线
+│   ├── zlyang-audit/           保真审计
+│   ├── zlyang-knowledge/       知识发布
+│   └── generate-openings/      短视频开头
+├── templates/                  目的契约、能力卡、阶段模板
+├── docs/                       详细机制和数据模型
+├── scripts/                    安装、校验、索引、运行
+└── workspace/
+    ├── inbox/                  原始材料
+    ├── capabilities/           可调用能力卡
+    ├── evidence/               证据/来源
+    ├── records/                可追溯记录
+    ├── baselines/              当前执行规则
+    ├── audits/                 审计
+    ├── knowledge/              发布知识
+    ├── runs/                   检查点和运行日志
+    └── archive/                历史归档
+```
+
+## 6. 需要时才用的进阶命令
+
+平时用自然语言在 Codex 中描述任务即可；只有调试或批量运行才需要以下命令。
+
+**检查用途契约：**
+
+```bash
+python3 scripts/purpose_gate.py inspect --file workspace/my-purpose.json
+```
+
+**建立能力卡索引并检索：**
+
+```bash
+python3 scripts/build_capability_index.py
+python3 scripts/recall.py --purpose 内容创作 --stage 开头 --task "优化前五秒反差开头" --allow-candidate --mode idea
+```
+
+**检查项目：**
+
+```bash
+python3 scripts/validate.py --records --runs
+python3 scripts/test_purpose_recall.py
+```
+
+详细说明：[目的、调研与召回机制](docs/purpose-research-recall.md) · [运行控制](docs/run-controls.md) · [统一数据模型](docs/data-model.md)
+
+## 7. 当前能力边界
+
+- 已有**目的充分性检查、受控流程、可检索的结构化能力卡和关键词召回**；目前尚不是向量语义检索。
+- 定向调研由有相应工具的 Codex 执行，本地脚本不自动联网。
+- 点赞、留存等目标值不能凭文案直接推断为已证实结果。
+- 候选卡可辅助创作，但**未经验证的卡不允许自动执行**。
+- 安装脚本只处理当前项目，不负责更改用户电脑上的其他文件夹。
+
+---
+
+**ZLYang OS 的目标不是整理得更漂亮，而是在下一个具体任务出现时，让正确的信息能被准确找到并使用。**
