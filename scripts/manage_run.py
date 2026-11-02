@@ -10,6 +10,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from purpose_gate import assess, read_contract
+
 
 ROOT = Path(__file__).resolve().parents[1]
 STAGES = ("verify", "distill", "baseline", "audit", "knowledge")
@@ -62,6 +64,10 @@ def new_run_id(root: Path, slug: str) -> str:
 
 def start(args: argparse.Namespace) -> int:
     root = args.root.resolve()
+    contract = read_contract(args.purpose_file)
+    gate = assess(contract)
+    if gate["status"] != "ready":
+        raise SystemExit("Purpose gate blocked: " + str(gate["next_question"]))
     run_id = new_run_id(root, safe_slug(args.slug))
     run_dir = root / "workspace" / "runs" / run_id
     run_dir.mkdir(parents=True, exist_ok=False)
@@ -76,8 +82,11 @@ def start(args: argparse.Namespace) -> int:
         "objective": args.objective,
         "risk_level": args.risk,
         "review_mode": mode,
+        "purpose_gate": "pass",
+        "purpose_contract_path": "purpose-contract.json",
     })
     write_json(run_dir / "manifest.json", manifest)
+    write_json(run_dir / "purpose-contract.json", contract)
 
     checkpoint_template = read_json(root / "templates" / "checkpoint.json")
     for index, stage in enumerate(STAGES):
@@ -235,6 +244,7 @@ def main() -> int:
     start_parser.add_argument("--slug", required=True)
     start_parser.add_argument("--owner", required=True)
     start_parser.add_argument("--objective", required=True)
+    start_parser.add_argument("--purpose-file", type=Path, required=True)
     start_parser.add_argument("--risk", choices=("low", "medium", "high"), default="low")
     start_parser.set_defaults(func=start)
 

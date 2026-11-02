@@ -17,6 +17,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = (
     "zlyang-os",
+    "zlyang-discovery",
     "zlyang-verify",
     "zlyang-distill",
     "zlyang-baseline",
@@ -24,10 +25,11 @@ SKILLS = (
     "zlyang-knowledge",
     "generate-openings",
 )
-WORKSPACE_DIRS = ("inbox", "evidence", "records", "baselines", "audits", "knowledge", "runs", "archive")
+WORKSPACE_DIRS = ("inbox", "evidence", "records", "baselines", "audits", "knowledge", "capabilities", "runs", "archive")
 REQUIRED_FILES = (
     "AGENTS.md",
     "README.md",
+    "docs/purpose-research-recall.md",
     "docs/data-model.md",
     "docs/run-controls.md",
     "schemas/zlyang-record.schema.json",
@@ -44,6 +46,11 @@ REQUIRED_FILES = (
     "templates/deletion-ledger.json",
     "templates/dependency-graph.json",
     "templates/review-plan.json",
+    "scripts/purpose_gate.py",
+    "scripts/recall.py",
+    "scripts/build_capability_index.py",
+    "templates/purpose-contract.json",
+    "templates/capability-card.json",
     "scripts/manage_run.py",
     "scripts/build_dependency_graph.py",
 )
@@ -225,6 +232,12 @@ def validate_run(run_dir: Path, records: dict[str, tuple[Path, dict[str, Any]]],
         errors.append(f"{manifest_path}: run_id does not match directory")
     if manifest.get("schema_version") != "1.1.0":
         errors.append(f"{manifest_path}: schema_version must be 1.1.0")
+    if manifest.get("purpose_gate") == "pass":
+        contract = load_json(run_dir / "purpose-contract.json", errors)
+        if isinstance(contract, dict):
+            from purpose_gate import assess
+            if assess(contract)["status"] != "ready":
+                errors.append(f"{run_dir}: incomplete purpose contract")
     stages = manifest.get("stages")
     expected_stages = ("verify", "distill", "baseline", "audit", "knowledge")
     if not isinstance(stages, list) or [stage.get("name") for stage in stages if isinstance(stage, dict)] != list(expected_stages):

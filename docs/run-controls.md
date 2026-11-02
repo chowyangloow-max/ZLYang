@@ -1,5 +1,10 @@
 # Run controls
 
+## Purpose discovery prerequisite
+
+New runs require a confirmed purpose contract checked using scripts/purpose_gate.py inspect --file PATH. Supply --purpose-file PATH to manage_run.py start. The controller copies the contract into the run directory; missing purpose, future task, rules, boundaries, acceptance or output paradigm blocks run creation. An already clear task is sufficient; do not delay it by adding redundant questions. Older run manifests without the purpose gate are preserved for backward compatibility.
+
+
 ZLYang OS v1.1 uses one manifest, five checkpoints, and four control artifacts per full run. Create them with `scripts/manage_run.py start`; do not copy them by hand.
 
 ## Coverage matrix

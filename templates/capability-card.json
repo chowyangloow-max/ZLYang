@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CARD-example-001",
+  "title": "",
+  "purposes": [],
+  "stages": [],
+  "tags": [],
+  "trigger_phrases": [],
+  "preconditions": [],
+  "method_steps": [],
+  "load_bearing_details": [],
+  "exceptions": [],
+  "not_for": [],
+  "outputs": [],
+  "acceptance_tests": [],
+  "source_refs": [],
+  "evidence_status": "unverified",
+  "lifecycle_status": "candidate",
+  "supersedes": [],
+  "superseded_by": [],
+  "review_at": null,
+  "notes": ""
+}

@@ -5,7 +5,7 @@ description: Deduplicate, reconcile, and compress verified information into a co
 
 # ZLYang Distill
 
-Reduce information volume without reducing decision integrity.
+Reduce information volume without reducing decision integrity. Read the purpose contract before selecting what to preserve. For short-video creation prioritize the original hook, first-five-second mechanism, emotional beats, oral rhythm and body-promise match; for SOP prioritize conditions, branches, exceptions, permissions, rollback and tests. Never let compression discard purpose-critical details.
 
 ## Workflow
 

@@ -17,6 +17,7 @@ WORKSPACE_DIRS = (
     "baselines",
     "audits",
     "knowledge",
+    "capabilities",
     "runs",
     "archive",
 )

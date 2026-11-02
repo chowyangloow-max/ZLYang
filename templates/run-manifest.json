@@ -5,6 +5,8 @@
   "completed_at": null,
   "owner": "replace-me",
   "objective": "",
+  "purpose_gate": "pending",
+  "purpose_contract_path": null,
   "status": "in_progress",
   "risk_level": "low",
   "review_mode": "single",

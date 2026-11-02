@@ -5,7 +5,7 @@ description: Publish audited conclusions and active baselines as reusable knowle
 
 # ZLYang Knowledge
 
-Turn validated work into durable knowledge without detaching it from evidence or lifecycle.
+Turn validated work into durable knowledge without detaching it from evidence or lifecycle. Favor atomic, indexed, task-retrievable capability cards over long summaries. Explicitly separate candidate creative references from independently verified active execution methods.
 
 ## Workflow
 

@@ -1,5 +1,10 @@
 # Pipeline contract
 
+## Before the five publication stages
+
+Discovery is a mandatory task-sufficiency gate, not a sixth evidence stage. Read the task context first, ask one consequential missing question only when needed, then match research priorities to actual use. The purpose contract is required to start NEW formal runs. Historical runs remain readable. See ../../../docs/purpose-research-recall.md.
+
+
 ## Default stage gates
 
 | Stage | Input | Gate to pass | Output |

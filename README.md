@@ -1,5 +1,72 @@
 # ZLYang OS
 
+## v1.2 — 目的驱动与随时可调用的能力库
+
+**先判断资料以后用于完成什么任务，再决定调研重点、蒸馏边界、能力卡与调用方法。**
+
+目的充分性而非强制问卷：当用途、未来任务、筛选规则、保留边界、可调用产物范式和成功标准已经明确，就直接做；只缺关键项时，只问一个能改变结果的问题。做知识库本身不是最终用途。
+
+原五模块治理仍在，入口增加 Discovery：
+
+    User task -> Discovery/Purpose Gate -> purpose-selected research
+       -> Verify -> Distill -> Baseline (when required) -> Audit -> Knowledge
+       -> atomic capability cards -> search index -> task retrieval -> feedback
+
+主要新增文件：
+
+- skills/zlyang-discovery/：目的充分性和调研路由。
+- templates/purpose-contract.json：用途契约模板。
+- templates/capability-card.json：可检索、带证据与生命周期的能力卡模板。
+- docs/purpose-research-recall.md：完整机制、边界与调用范式。
+- scripts/purpose_gate.py：真实可运行的 Purpose Gate。
+- scripts/build_capability_index.py：卡片结构验证和索引构建。
+- scripts/recall.py：按用途、场景、触发词与状态过滤召回。
+- scripts/test_purpose_recall.py：独立回归测试。
+- workspace/capabilities/：能力卡存储，index.jsonl 是可重建检索索引。
+
+### 本地安装 / 更新
+
+    git clone https://github.com/chowyangloow-max/ZLYang.git
+    cd ZLYang
+    python3 scripts/init_workspace.py
+    python3 scripts/install_codex_skills.py
+    python3 scripts/validate.py --records --runs
+    python3 scripts/test_purpose_recall.py
+
+已有本地仓库用 git status 检查未提交改动，然后执行 git pull origin main。随后运行 install_codex_skills.py。没有直接访问用户 Mac 文件系统的权限时，远程提交不会自动修改该电脑的本地副本。
+
+### 用途明确时，直接执行而非重复追问
+
+例如给出一段口播稿，并明确用途是内容创作、聚焦前5秒和情绪波峰、近期低粉爆款筛选、尽量保留原文。即刻进入结构分析；没有视频实际数据时标注未经验证，另列可选调研，不把后续卖什么当作强制障碍。
+
+将 templates/purpose-contract.json 复制到 workspace/my-purpose.json 并填入已知信息：
+
+    python3 scripts/purpose_gate.py inspect --file workspace/my-purpose.json
+
+状态 ready 才进入受控正式运行：
+
+    python3 scripts/manage_run.py start --slug content-study --owner operator --objective "短视频能力卡蒸馏" --risk low --purpose-file workspace/my-purpose.json
+
+### 生成与召回可调用知识
+
+能力卡用 JSON 结构保存到 workspace/capabilities/，其中标签、触发短语、未来任务、证据状态、适用范围、前置和例外用于检索和执行边界检查：
+
+    python3 scripts/build_capability_index.py
+    python3 scripts/recall.py --purpose 内容创作 --stage 开头 --task "优化前五秒反差开头" --allow-candidate --mode idea
+
+idea 模式可显式包含候选方法并展示警告；execute 模式仅召回 active + verified 的卡，仍须由执行层逐项判断其前置和适用条件。脚本只检索，不直接自动执行。
+
+### 作用和限制
+
+- **不取代原系统**：Verify / Distill / Baseline / Audit / Knowledge 和独立审核、删除账本、覆盖矩阵、反向验证保持存在。
+- **分清真实与推测**：点赞、留存等只是已给目标或待核查数据，不能由文本分析推断实际传播效果。
+- **按用途调研**：调研路由由 Codex 根据用例和证据缺口执行；脚本本身不自动联网抓取。
+- **不是语义搜索**：当前索引为确定性触发词和标签匹配，能复用但对同义改写有局限；未来可加向量召回。
+- **不把候选卡当已验证执行能力**：来源可回查、版本可停用，不靠旧规则出现次数判定有效。
+
+完整用法及细节：docs/purpose-research-recall.md 和 docs/run-controls.md。
+
+
 ZLYang OS 是一个面向 Codex 的信息治理项目。它把海量、混乱、真假参半、互相冲突、版本交错的材料，转成四类真正可用的结果：
 
 - **可信**：每项关键主张都有证据、判定和置信度；

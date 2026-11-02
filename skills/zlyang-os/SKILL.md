@@ -5,6 +5,14 @@ description: Run mixed, contradictory, versioned material through gated verifica
 
 # ZLYang OS
 
+## Precondition: ZLYang Discovery
+
+Before Verify, invoke zlyang-discovery. Extract the downstream task and success conditions from the user's already supplied context. When purpose, selection rules, boundaries and output pattern are clear, immediately research and distill; otherwise ask only the most consequential missing question. A knowledge base is a storage format, not a complete use case. Never force an inferred commercial objective on a clear writing-analysis task.
+
+For full managed runs, prepare and inspect templates/purpose-contract.json with scripts/purpose_gate.py, then pass --purpose-file to scripts/manage_run.py start. Purpose shapes what Verify researches, Distill retains, Audit checks, and Knowledge indexes.
+
+Use scripts/build_capability_index.py and scripts/recall.py to retrieve task-matched atomic capability cards rather than reread all files. Baseline is for stable execution workflows; candidate creative methods may be analyzed without claiming fully validated production readiness. Read ../../docs/purpose-research-recall.md.
+
 Convert uncertain inputs into a traceable decision chain. Preserve source material; never make an unverified claim look settled.
 
 ## Route the task

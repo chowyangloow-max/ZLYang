@@ -2,3 +2,6 @@
 __pycache__/
 *.pyc
 work/
+
+# Rebuildable search index
+workspace/capabilities/index.jsonl

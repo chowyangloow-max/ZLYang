@@ -2,6 +2,15 @@
 
 This repository turns mixed, contradictory, and versioned information into trustworthy, executable, and traceable knowledge and action systems.
 
+## Purpose Gate: required before any distillation
+
+- Read skills/zlyang-discovery/SKILL.md first. Understand the future task, selection rules, preservation boundaries, acceptance criteria and output paradigm.
+- When the user's description already provides those elements, proceed immediately. Do not ask again, or insist on extra commercial context for a bounded content-analysis task.
+- Otherwise ask ONE question that materially changes how to research or distill; never default to a long questionnaire.
+- Keep inferred deeper needs labeled as hypotheses until corroborated; do not silently rewrite the user's objective.
+- Distill for future reuse: indexed capability cards and query triggers, not only polished Markdown.
+- Candidate/unverified cards are references, never authorized automatic execution. The full managed run must pass a purpose contract before Verify.
+
 ## Start here
 
 Use `skills/zlyang-os/SKILL.md` as the router. Load only the module Skill needed for the current stage. For multi-stage work, follow Verify to Distill to Baseline to Audit to Knowledge and respect each gate.
